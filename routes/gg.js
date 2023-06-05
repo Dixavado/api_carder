@@ -51,19 +51,19 @@ router.get('/gg/:dados', async (req, res) => {
       let cartaoCompleto = '';
       let cvv = '';
       let isValid = false;
-
+    
       do {
         const digitosFaltantes = 16 - cartaoParcial.length;
         cartaoCompleto = `${cartaoParcial}${generateRandomDigits(digitosFaltantes)}`;
         cvv = generateRandomCVV();
         isValid = isValidCreditCardNumber(cartaoCompleto);
       } while (!isValid);
-
+    
       const dataFormatada = `${data.slice(0, 2)}/${data.slice(2)}`;
-      const resultado = `${cartaoCompleto} ${dataFormatada} ${cvv}`;
+      const resultado = `${cartaoCompleto}|${dataFormatada}|${cvv}`;
       resultados.push({ resultado });
     }
-
+    
     res.json(resultados);
   } catch (error) {
     console.error(error);
